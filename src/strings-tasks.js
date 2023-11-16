@@ -338,11 +338,9 @@ function isPalindrome(str) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(sentence) {
-  const arr = sentence.split(' ')
-  
-
-}
+// function findLongestWord(sentence) {
+//   //
+// }
 
 /**
  * Returns the string where each word is reversed.
@@ -581,7 +579,7 @@ module.exports = {
   orderAlphabetically,
   containsSubstring,
   isPalindrome,
-  findLongestWord,
+  // findLongestWord,
   reverseWords,
   invertCase,
   getStringFromTemplate,
