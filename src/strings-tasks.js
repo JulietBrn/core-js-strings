@@ -322,8 +322,14 @@ function countVowels(str) {
  *   isPalindrome('No lemon, no melon') => true
  */
 function isPalindrome(str) {
-  const reversed = [...str.split('').reverse().join('')];
-  return str.toLowerCase() === reversed.toLowerCase();
+  const myStr = str
+    .toLowerCase()
+    .replaceAll(' ', '')
+    .replaceAll(',', '')
+    .replace('!', '')
+    .replace('?', '');
+  const reversed = [...myStr.split('').reverse()];
+  return myStr === reversed.join('');
 }
 
 /**
@@ -338,9 +344,15 @@ function isPalindrome(str) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-// function findLongestWord(sentence) {
-//   //
-// }
+function findLongestWord(sentence) {
+  const newArr = sentence.split(' ');
+  const arrOfDig = [];
+  newArr.forEach((val) => {
+    arrOfDig.push(val.length);
+  });
+  const maxI = arrOfDig.indexOf(Math.max(...arrOfDig));
+  return newArr[maxI];
+}
 
 /**
  * Returns the string where each word is reversed.
@@ -579,7 +591,7 @@ module.exports = {
   orderAlphabetically,
   containsSubstring,
   isPalindrome,
-  // findLongestWord,
+  findLongestWord,
   reverseWords,
   invertCase,
   getStringFromTemplate,
