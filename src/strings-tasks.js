@@ -69,7 +69,7 @@ function concatenateStrings(value1, value2) {
  *   getFirstChar('') => ''
  */
 function getFirstChar(value) {
-  return value === '' ? '' : value[0];
+  return value.charAt(0);
 }
 
 /**
@@ -99,7 +99,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
  */
 function removeLeadingWhitespaces(value) {
-  return value.trimLeft();
+  return value.trimStart();
 }
 
 /**
@@ -114,7 +114,7 @@ function removeLeadingWhitespaces(value) {
  *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
  */
 function removeTrailingWhitespaces(value) {
-  return value.trimRight();
+  return value.trimEnd();
 }
 
 /**
@@ -147,7 +147,11 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeFirstOccurrences(str, value) {
-  return str.replace(value, '');
+  const firstIndex = str.indexOf(value);
+  const firstPart = `${str.slice(0, firstIndex)}`;
+  const lastIndex = firstIndex + value.length;
+  const secondPart = `${str.slice(lastIndex, str.length)}`;
+  return firstIndex !== -1 ? firstPart.concat(secondPart) : str;
 }
 
 /**
@@ -163,7 +167,11 @@ function removeFirstOccurrences(str, value) {
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeLastOccurrences(str, value) {
-  return str.replace(value, '');
+  const firstIndex = str.lastIndexOf(value);
+  const firstPart = `${str.slice(0, firstIndex)}`;
+  const lastIndex = firstIndex + value.length;
+  const secondPart = `${str.slice(lastIndex, str.length)}`;
+  return firstIndex !== -1 ? firstPart.concat(secondPart) : str;
 }
 
 /**
@@ -178,7 +186,14 @@ function removeLastOccurrences(str, value) {
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
  */
-function sumOfCodes(/* str */) {}
+function sumOfCodes(str) {
+  return str
+    ? str
+        .split('')
+        .map((val) => val.charCodeAt())
+        .reduce((acc, val) => acc + val)
+    : 0;
+}
 
 /**
  * Checks if a string starts with a specific substring.
@@ -224,9 +239,9 @@ function endsWith(str, substr) {
  *   formatTime(0, 0) => "00:00"
  */
 function formatTime(minutes, seconds) {
-  const minutesL = minutes < 10 ? '0'.concat(minutes) : minutes;
-  const secondsL = seconds < 10 ? '0'.concat(seconds) : seconds;
-  return `${minutesL}:${secondsL}`;
+  const min = minutes.toString().padStart(2, '0');
+  const sec = seconds.toString().padStart(2, '0');
+  return `${min}:${sec}`;
 }
 
 /**
@@ -323,11 +338,11 @@ function isPalindrome(str) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-/* function findLongestWord(sentence) {
+function findLongestWord(sentence) {
   const arr = sentence.split(' ')
   
 
-} */
+}
 
 /**
  * Returns the string where each word is reversed.
@@ -358,15 +373,15 @@ function reverseWords(str) {
  */
 function invertCase(str) {
   const arr = str.split('');
-  arr.map((val) => {
+  const newArr = [];
+  arr.forEach((val) => {
     if (val === val.toUpperCase()) {
-      val.toLowerCase();
+      newArr.push(val.toLowerCase());
     } else {
-      val.toUpperCase();
+      newArr.push(val.toUpperCase());
     }
-    return val;
   });
-  return arr.join('');
+  return newArr.join('');
 }
 
 /**
@@ -566,7 +581,7 @@ module.exports = {
   orderAlphabetically,
   containsSubstring,
   isPalindrome,
-  // findLongestWord,
+  findLongestWord,
   reverseWords,
   invertCase,
   getStringFromTemplate,
